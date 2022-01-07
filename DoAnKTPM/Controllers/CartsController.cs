@@ -23,7 +23,7 @@ namespace DoAnKTPM.Controllers
         public async Task<IActionResult> Index()
         {
             var doAnKTPMContext = _context.Carts.Include(c => c.Account).Include(c => c.Product);
-            return View(await doAnKTPMContext.ToListAsync());
+            return View(await doAnKTPMContext.ToListAsync()); 
         }
 
         // GET: Carts/Details/5
