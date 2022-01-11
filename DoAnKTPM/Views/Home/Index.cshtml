@@ -1,29 +1,40 @@
 ﻿@model IEnumerable<DoAnKTPM.Models.Product>
 @{
     ViewData["Title"] = "Trang chủ";
-    Layout = "~/Views/Shared/_LayoutUser.cshtml";
-    ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    ViewData["TaiKhoan"] = ViewBag.AccountUserName;
+
+    string username = ViewBag.AccountUserName;
+
+    if (ViewBag.AccountUserName != null)
+    {
+        username = ViewBag.AccountUserName;
+    }
+    else
+    {
+        username = "Khách";
+    }
 }
 
-<div class="slider-area">
+<!--<div class="slider-area">
     <div class="block-slider block-slider4">
         <ul class="" id="bxslider-home4">
             <li>
-                <img src="~/users/img/1.png" alt="Slide">
+                <img src="~/users/img/13.jpg" alt="Slide">
 
             </li>
             <li>
-                <img src="~/users/img/2.png" alt="Slide">
+                <img src="~/users/img/14.jpg" alt="Slide">
 
             </li>
             <li>
-                <img src="~/users/img/3.png" alt="Slide">
+                <img src="~/users/img/15.jpg" alt="Slide">
 
             </li>
         </ul>
     </div>
-</div>  @*End slider area*@
-
+</div>-->  @*End slider area*@
+<h1>Welcome: @username</h1>
 <div class="promo-area">
     <div class="zigzag-bottom"></div>
     <div class="container">
@@ -55,7 +66,12 @@
         </div>
     </div>
 </div>  @*End promo area*@
-
+<form asp-controller="Home" asp-action="Index" method="get">
+    <p>
+        Tên Sách: <input type="text" name="SearchString" />
+        <input type="submit" value="Tìm Kiếm" />
+    </p>
+</form>
 <div class="maincontent-area">
     <div class="zigzag-bottom"></div>
     <div class="container">
@@ -68,17 +84,17 @@
                         <div style="height: 400px; " class="col-md-3">
                             <div style="width: 200px; margin-bottom:20px" class="single-product">
                                 <div style="height: 265px;" class="product-f-image">
-                                    <img style="width:200px" src="~/img/sanpham/@item.Image" alt="">
+                                    <img style="width:200px;height:265px" src="~/img/product/@item.Image" alt="">
                                     <div class="product-hover">
-                                        <a asp-controller="Home" asp-action="Addcart" asp-route-id="@item.SanPhamId" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        <a asp-route-id="@item.SanPhamId" asp-controller="Home" asp-action="SingleProduct" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                        <a asp-controller="Home" asp-action="Addcart" asp-route-id="@item.Id" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a asp-route-id="@item.Id" asp-controller="Home" asp-action="SingleProduct" class="view-details-link"><i class="fa fa-link"></i> See details</a>
                                     </div>
                                 </div>
 
-                                <h2><a asp-route-id="@item.SanPhamId" asp-controller="Home" asp-action="SingleProduct"> @item.TenSP</a></h2>
+                                <h2><a asp-route-id="@item.Id" asp-controller="Home" asp-action="SingleProduct"> @item.Name</a></h2>
 
                                 <div class="product-carousel-price">
-                                    <ins>@item.DonGia.ToString("#,##0") VND</ins>
+                                    <ins>@item.Price.ToString("#,##0") VND</ins>
 
                                 </div>
 

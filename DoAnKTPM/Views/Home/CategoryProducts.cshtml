@@ -1,0 +1,142 @@
+﻿@model IEnumerable<DoAnKTPM.Models.Product>
+@{
+    ViewData["Title"] = "Danh mục";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
+
+}
+
+<!--<div class="slider-area">
+    <div class="block-slider block-slider4">
+        <ul class="" id="bxslider-home4">
+            <li>
+                <img src="~/users/img/13.jpg" alt="Slide">
+
+            </li>
+            <li>
+                <img src="~/users/img/14.jpg" alt="Slide">
+
+            </li>
+            <li>
+                <img src="~/users/img/15.jpg" alt="Slide">
+
+            </li>
+        </ul>
+    </div>
+</div>-->  @*End slider area*@
+
+<div class="promo-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="single-promo promo1">
+                    <i class="fa fa-refresh"></i>
+                    <p>30 Days return</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="single-promo promo2">
+                    <i class="fa fa-truck"></i>
+                    <p>Free shipping</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="single-promo promo3">
+                    <i class="fa fa-lock"></i>
+                    <p>Secure payments</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="single-promo promo4">
+                    <i class="fa fa-gift"></i>
+                    <p>New products</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  @*End promo area*@
+@*<form asp-controller="Home" asp-action="CategoryProducts" method="get">
+    <label for="dog-names">Danh Mục</label>
+    <select name="dog-names" id="dog-names">
+        @foreach (var item in Model)
+        {
+            <option value="@item.Id">@item.ProductType.Name</option>
+        }
+        <input type="submit" value="Tìm Kiếm" />
+    </select>
+    
+</form>*@
+<form asp-controller="Home" asp-action="CategoryProducts" method="get">
+    <label>Danh Mục</label>
+        <select name="SearchString">
+            <option value="">Tất cả</option>
+            <option value="0">Sách Giáo Khoa</option>
+            <option value="1">Sách Tham Khảo</option>
+            <option value="2">Sách nước ngoài</option>
+            <option value="3">Báo & Tạp chí</option>
+            <option value="4">Tiểu thuyết & Tự truyện</option>
+            <option value="5">Khác</option>
+        </select> 
+    <input type="submit" value="Tìm kiếm"/>
+</form>
+<div class="maincontent-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="section-title">Category Products</h2>
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div style="height: 400px; " class="col-md-3">
+                            <div style="width: 200px; margin-bottom:20px" class="single-product">
+                                <div style="height: 265px;" class="product-f-image">
+                                    <img style="width:200px;height:265px" src="~/img/product/@item.Image" alt="">
+                                    <div class="product-hover">
+                                        <a asp-controller="Home" asp-action="Addcart" asp-route-id="@item.Id" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a asp-route-id="@item.Id" asp-controller="Home" asp-action="SingleProduct" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                    </div>
+                                </div>
+
+                                <h2><a asp-route-id="@item.Id" asp-controller="Home" asp-action="SingleProduct"> @item.Name</a></h2>
+
+                                <div class="product-carousel-price">
+                                    <ins>@item.Price.ToString("#,##0") VND</ins>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  @*End main content area*@
+
+<!--<div class="brands-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="brand-wrapper">
+                    <div class="brand-list">
+                        <img src="~/users/img/brand1.png" alt="">
+                        <img src="~/users/img/brand2.png" alt="">
+                        <img src="~/users/img/brand3.png" alt="">
+                        <img src="~/users/img/brand4.png" alt="">
+                        <img src="~/users/img/brand5.png" alt="">
+                        <img src="~/users/img/brand6.png" alt="">
+                        <img src="~/users/img/brand1.png" alt="">
+                        <img src="~/users/img/brand2.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+@*End brands area*@
+
+

@@ -1,0 +1,26 @@
+﻿@*@model IEnumerable<DoAnKTPM.Models.Account>*@
+@model DoAnKTPM.Models.Account
+@{
+    ViewData["Title"] = "Trang chủ";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
+}
+
+<div class="login-form">
+    <form asp-controller="Home" asp-action="Login" method="post">
+        <h1>Login</h1>
+        <div class="content">
+            <div class="input-field">
+                <input asp-for="Username" type="text" placeholder="Username" autocomplete="nope">
+            </div>
+            <div class="input-field">
+                <input asp-for="Password" type="password" placeholder="Password" autocomplete="new-password">
+            </div>
+            <a href="#" class="link">Forgot Your Password?</a>
+        </div>
+        <div class="action">
+            <button asp-controller="Home" asp-action="Register">Register</button>
+            <button type="submit">Sign in</button>
+        </div>
+    </form>
+</div>

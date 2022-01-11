@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DoAn_HK5_2021_2022\\DoAnKTPM\\DoAnKTPM\\DoAnKTPM.csproj": {}
+    "D:\\Tài Liệu CDTH19PMD\\Lập Trình Web ASP\\Đồ Án KTPM\\DoAnKTPM\\DoAnKTPM.csproj": {}
   },
   "projects": {
-    "D:\\DoAn_HK5_2021_2022\\DoAnKTPM\\DoAnKTPM\\DoAnKTPM.csproj": {
+    "D:\\Tài Liệu CDTH19PMD\\Lập Trình Web ASP\\Đồ Án KTPM\\DoAnKTPM\\DoAnKTPM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DoAn_HK5_2021_2022\\DoAnKTPM\\DoAnKTPM\\DoAnKTPM.csproj",
+        "projectUniqueName": "D:\\Tài Liệu CDTH19PMD\\Lập Trình Web ASP\\Đồ Án KTPM\\DoAnKTPM\\DoAnKTPM.csproj",
         "projectName": "DoAnKTPM",
-        "projectPath": "D:\\DoAn_HK5_2021_2022\\DoAnKTPM\\DoAnKTPM\\DoAnKTPM.csproj",
-        "packagesPath": "C:\\Users\\HuynhMinhHieu\\.nuget\\packages\\",
-        "outputPath": "D:\\DoAn_HK5_2021_2022\\DoAnKTPM\\DoAnKTPM\\obj\\",
+        "projectPath": "D:\\Tài Liệu CDTH19PMD\\Lập Trình Web ASP\\Đồ Án KTPM\\DoAnKTPM\\DoAnKTPM.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "D:\\Tài Liệu CDTH19PMD\\Lập Trình Web ASP\\Đồ Án KTPM\\DoAnKTPM\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HuynhMinhHieu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -73,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAnKTPM.Data;
 using DoAnKTPM.Models;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace DoAnKTPM.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly DoAnKTPMContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductsController(DoAnKTPMContext context)
+        public ProductsController(DoAnKTPMContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Products
@@ -57,12 +61,29 @@ namespace DoAnKTPM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SKU,Name,Description,Price,Stock,ProductTypeId,Image,Status")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,SKU,Name,Description,Price,Stock,ProductTypeId,Image,ImageFile,Status")] Product product)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
+
+                //Xu ly Upload file
+                if (product.ImageFile != null)
+                {
+                    //Xy ly
+                    var fileName = product.Id.ToString() + Path.GetExtension(product.ImageFile.FileName);
+                    var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "product");
+                    var filePath = Path.Combine(uploadPath, fileName);
+                    using (FileStream fs = System.IO.File.Create(filePath))
+                    {
+                        product.ImageFile.CopyTo(fs);
+                        fs.Flush();
+                    }
+                    product.Image = fileName;
+                    _context.Products.Update(product);
+                    await _context.SaveChangesAsync();
+                }
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "Name", product.ProductTypeId);

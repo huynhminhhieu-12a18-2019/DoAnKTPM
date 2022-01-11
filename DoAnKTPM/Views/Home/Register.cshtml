@@ -1,0 +1,29 @@
+﻿@model DoAnKTPM.Models.Account
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<hr/>
+<div class="login-form">
+    <form asp-controller="Home" asp-action="Register" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <h1>Register</h1>
+        <div class="content">
+            <div class="input-field">
+                <input asp-for="Username" type="text" placeholder="Username"  autocomplete="nope">
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="input-field">
+                <input asp-for="Password" type="password" placeholder="Password" autocomplete="new-password">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="action">
+            <button type="submit">Register</button>
+        </div>
+    </form>
+</div>
+<div>
+    <h3 style="text-align:center;color:black;font-weight:bold"><a asp-action="Index">Back to Home Page</a></h3>
+</div>
