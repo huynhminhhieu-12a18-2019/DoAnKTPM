@@ -2,8 +2,18 @@
 @{
     ViewData["Title"] = "Danh mục";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
-    ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
+    ViewData["TaiKhoan"] = ViewBag.AccountUserName;
 
+    string username = ViewBag.AccountUserName;
+
+    if (ViewBag.AccountUserName != null)
+    {
+        username = ViewBag.AccountUserName;
+    }
+    else
+    {
+        username = "Khách";
+    }
 }
 
 <!--<div class="slider-area">
@@ -23,8 +33,9 @@
             </li>
         </ul>
     </div>
-</div>-->  @*End slider area*@
-
+</div>-->
+@*End slider area*@
+<h1>Welcome: @username</h1>
 <div class="promo-area">
     <div class="zigzag-bottom"></div>
     <div class="container">
@@ -57,28 +68,28 @@
     </div>
 </div>  @*End promo area*@
 @*<form asp-controller="Home" asp-action="CategoryProducts" method="get">
-    <label for="dog-names">Danh Mục</label>
-    <select name="dog-names" id="dog-names">
-        @foreach (var item in Model)
-        {
-            <option value="@item.Id">@item.ProductType.Name</option>
-        }
-        <input type="submit" value="Tìm Kiếm" />
-    </select>
-    
-</form>*@
+        <label for="dog-names">Danh Mục</label>
+        <select name="dog-names" id="dog-names">
+            @foreach (var item in Model)
+            {
+                <option value="@item.Id">@item.ProductType.Name</option>
+            }
+            <input type="submit" value="Tìm Kiếm" />
+        </select>
+
+    </form>*@
 <form asp-controller="Home" asp-action="CategoryProducts" method="get">
     <label>Danh Mục</label>
-        <select name="SearchString">
-            <option value="">Tất cả</option>
-            <option value="0">Sách Giáo Khoa</option>
-            <option value="1">Sách Tham Khảo</option>
-            <option value="2">Sách nước ngoài</option>
-            <option value="3">Báo & Tạp chí</option>
-            <option value="4">Tiểu thuyết & Tự truyện</option>
-            <option value="5">Khác</option>
-        </select> 
-    <input type="submit" value="Tìm kiếm"/>
+    <select name="SearchString">
+        <option value="">Tất cả</option>
+        <option value="0">Sách Giáo Khoa</option>
+        <option value="1">Sách Tham Khảo</option>
+        <option value="2">Sách nước ngoài</option>
+        <option value="3">Báo & Tạp chí</option>
+        <option value="4">Tiểu thuyết & Tự truyện</option>
+        <option value="5">Khác</option>
+    </select>
+    <input type="submit" value="Tìm kiếm" />
 </form>
 <div class="maincontent-area">
     <div class="zigzag-bottom"></div>

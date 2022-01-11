@@ -42,6 +42,10 @@ namespace DoAnKTPM.Controllers
         }
         public ActionResult AllProducts(string SearchString = "")
         {
+            if (HttpContext.Session.Keys.Contains("AccountUsername"))
+            {
+                ViewBag.AccountUserName = HttpContext.Session.GetString("AccountUsername");
+            }
             List<Product> products;
             if (SearchString != "" && SearchString != null)
             {
@@ -55,6 +59,10 @@ namespace DoAnKTPM.Controllers
         }
         public ActionResult CategoryProducts(string SearchString = "")
         {
+            if (HttpContext.Session.Keys.Contains("AccountUsername"))
+            {
+                ViewBag.AccountUserName = HttpContext.Session.GetString("AccountUsername");
+            }
             List<Product> products;
             if (SearchString != "" && SearchString != null)
             {

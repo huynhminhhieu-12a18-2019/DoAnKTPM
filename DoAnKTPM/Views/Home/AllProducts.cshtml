@@ -2,7 +2,18 @@
 @{
     ViewData["Title"] = "Sản phẩm";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
-    ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
+    ViewData["TaiKhoan"] = ViewBag.AccountUserName;
+
+    string username = ViewBag.AccountUserName;
+
+    if (ViewBag.AccountUserName != null)
+    {
+        username = ViewBag.AccountUserName;
+    }
+    else
+    {
+        username = "Khách";
+    }
 }
 
 <!--<div class="slider-area">
@@ -22,8 +33,9 @@
             </li>
         </ul>
     </div>
-</div>-->  @*End slider area*@
-
+</div>-->
+@*End slider area*@
+<h1>Welcome: @username</h1>
 <div class="promo-area">
     <div class="zigzag-bottom"></div>
     <div class="container">

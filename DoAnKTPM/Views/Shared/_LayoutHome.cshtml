@@ -99,12 +99,14 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
+
                         @if (@ViewData["Title"] == "Trang chủ")
                         {
                             <li class="active"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
                             <li><a asp-action="AllProducts" asp-controller="Home">Tất cả sản phẩm</a></li>
                             <li><a asp-action="CategoryProducts" asp-controller="Home">Danh mục sản phẩm</a></li>
                         }
+
                         @if (@ViewData["Title"] == "Sản phẩm")
                         {
                             <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
@@ -117,6 +119,7 @@
                             <li><a asp-action="AllProducts" asp-controller="Home">Tất cả sản phẩm</a></li>
                             <li class="active"><a asp-action="CategoryProducts" asp-controller="Home">Danh mục sản phẩm</a></li>
                         }
+
                     </ul>
                 </div>
             </div>
