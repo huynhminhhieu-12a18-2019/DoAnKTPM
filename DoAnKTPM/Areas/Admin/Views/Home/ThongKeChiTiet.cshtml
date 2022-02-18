@@ -1,0 +1,114 @@
+﻿@model IEnumerable<DoAnKTPM.Models.Invoice>
+@{
+    ViewData["Title"] = "ThongKeChiTiet";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var tiendachi = Model.GroupBy(i => i.AccountId).SelectMany(cl => cl.Select(
+                    csLine => new
+                    {
+                        MaKH = csLine.Account.Id,
+                        TenKH = csLine.Account.FullName,
+                        SDT = csLine.Account.Phone.ToString(),
+                        Total = cl.Sum(c => c.Total).ToString(),
+                    })).Distinct().ToList();
+}
+<div style="margin-left:50px">
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Hóa đơn mới trong tuần
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Mã hóa đơn</th>
+                        <th>Khách hàng</th>
+                        <th>Ngày lập</th>
+                        <th>Địa chỉ giao</th>
+                        <th>SDT giao</th>
+                        <th>Tổng tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var i in @ViewBag.hoadon)
+                    {
+                        <tr>
+                            <td>@i.Code</td>
+                            <td>@i.Account.FullName</td>
+                            <td>@i.IssuedDate</td>
+                            <td>@i.ShippingAddress</td>
+                            <td>@i.ShippingPhone</td>
+                            <td>@i.Total</td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <span style="font-weight:bold">Doanh thu</span>
+    <div>
+        <form action="/" method="post">
+            Khoảng ngày: <input id="datebefore" type="date" name="datebefore" value="" />   <input type="date" id="dateafter" name="dateafter" value="" />
+        </form><br>
+        <p> Tổng doanh thu : @ViewBag.doanhthu</p>
+        Tổng doanh số : @ViewBag.doanhso
+    </div><br>
+    <span style="font-weight:bold">Số tiền đã chi của mỗi khách hàng</span>
+    <table class="table">
+        <tr>
+            <th>Mã khách hàng</th>
+            <th>Tên khách hàng</th>
+            <th>SDT</th>
+            <th>Tiền đã chi</th>
+        </tr>
+        @foreach (var i in @tiendachi)
+        {
+            <tr>
+                <td>@i.MaKH</td>
+                <td>@i.TenKH</td>
+                <td>@i.SDT</td>
+                <td>@i.Total</td>
+            </tr>
+        }
+    </table>
+    <span style="font-weight:bold">Top sản phẩm bán chạy</span>
+    @*<table class="table">
+            <tr>
+                <th>Mã sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Tên sản phẩm</th>
+            </tr>
+            @foreach(var i in @ViewBag.spbanchay)
+                {
+                <tr>
+                    <td>@i.MaSP</td>
+                    <td>@i.TenSP</td>
+                    <td>@i.TongSL</td>
+                </tr>
+                }
+        </table>*@
+    <script>
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById("datebefore").setAttribute("max", today);
+        document.getElementById("dateafter").setAttribute("max", today);
+        document.getElementById("datebefore").setAttribute("value", today);
+        document.getElementById("dateafter").setAttribute("value", today);
+    </script>
+</div>
+

@@ -15,7 +15,7 @@
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" asp-controller="Admins" asp-action="Index">Start Bootstrap</a>
+        <a class="navbar-brand ps-3" asp-controller="Admins" asp-action="Index">@ViewData["taikhoan"]</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="~/admins/#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
@@ -30,10 +30,10 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="~/admins/#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="~/admins/#!">Settings</a></li>
+                    @*<li><a class="dropdown-item" href="~/admins/#!">Settings</a></li>
                     <li><a class="dropdown-item" href="~/admins/#!">Activity Log</a></li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="~/admins/#!">Logout</a></li>
+                    <li><hr class="dropdown-divider" /></li>*@
+                    <li><a class="dropdown-item" asp-area="Admin" asp-action="Logout" asp-controller="Home">Logout</a></li>
                 </ul>
             </li>
         </ul>
@@ -44,7 +44,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link"  asp-controller="Admins" asp-action="Index">
+                        <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
@@ -56,8 +56,8 @@
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-action="index" asp-controller="Products">Tất cả sản phẩm</a>
-                                <a class="nav-link" asp-action="index" asp-controller="ProductTypes">Loại sản phẩm</a>
+                                <a class="nav-link" asp-area="Admin" asp-action="index" asp-controller="Products">Tất cả sản phẩm</a>
+                                <a class="nav-link" asp-area="Admin" asp-action="index" asp-controller="ProductTypes">Loại sản phẩm</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="~/admins/#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -67,23 +67,27 @@
                         </a>
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link collapsed"  asp-controller="Invoices" asp-action="Index" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                <a class="nav-link collapsed" asp-area="Admin" asp-controller="Invoices" asp-action="Index" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
                                     Tất cả hóa đơn
-                                    
+
                                 </a>
-                                <a class="nav-link collapsed"  asp-controller="InvoiceDetails" asp-action="Index" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                <a class="nav-link collapsed" asp-area="Admin" asp-controller="InvoiceDetails" asp-action="Index" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
                                     Chi tiết hóa đơn
-                                   
+
                                 </a>
                             </nav>
                         </div>
-                        <a class="nav-link" asp-controller="Carts" asp-action="Index">
+                        <a class="nav-link" asp-area="Admin" asp-controller="Carts" asp-action="Index">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Giỏ hàng
                         </a>
-                        <a class="nav-link" asp-controller="Accounts" asp-action="Index">
+                        <a class="nav-link" asp-area="Admin" asp-controller="Accounts" asp-action="Index">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Tài khoản
+                        </a>
+                        <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="ThongKeChiTiet">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Thống kê chi tiết
                         </a>
                     </div>
                 </div>
