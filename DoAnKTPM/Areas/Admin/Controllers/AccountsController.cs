@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAnKTPM.Data;
 using DoAnKTPM.Models;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace DoAnKTPM.Areas.Admin.Controllers
 {
@@ -14,10 +16,12 @@ namespace DoAnKTPM.Areas.Admin.Controllers
     public class AccountsController : Controller
     {
         private readonly DoAnKTPMContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AccountsController(DoAnKTPMContext context)
+        public AccountsController(DoAnKTPMContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Admin/Accounts
@@ -55,12 +59,26 @@ namespace DoAnKTPM.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Username,Password,Email,Phone,Address,FullName,IsAdmin,Avatar,Status")] Account account)
+        public async Task<IActionResult> Create([Bind("Id,Username,Password,Email,Phone,Address,FullName,IsAdmin,Avatar,AvatarFile,Status")] Account account)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(account);
                 await _context.SaveChangesAsync();
+                if (account.AvatarFile != null)
+                {
+                    var filename = account.Id.ToString() + Path.GetExtension(account.AvatarFile.FileName);
+                    var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "account");
+                    var filePath = Path.Combine(uploadPath, filename);
+                    using (FileStream fs = System.IO.File.Create(filePath))
+                    {
+                        account.AvatarFile.CopyTo(fs);
+                        fs.Flush();
+                    }
+                    account.Avatar = filename;
+                    _context.Update(account);
+                    await _context.SaveChangesAsync();
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(account);
@@ -87,7 +105,7 @@ namespace DoAnKTPM.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Username,Password,Email,Phone,Address,FullName,IsAdmin,Avatar,Status")] Account account)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Username,Password,Email,Phone,Address,FullName,IsAdmin,Avatar,AvatarFile,Status")] Account account)
         {
             if (id != account.Id)
             {
@@ -98,8 +116,20 @@ namespace DoAnKTPM.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(account);
-                    await _context.SaveChangesAsync();
+                    if (account.AvatarFile != null)
+                    {
+                        var filename = account.Id.ToString() + Path.GetExtension(account.AvatarFile.FileName);
+                        var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "account");
+                        var filePath = Path.Combine(uploadPath, filename);
+                        using (FileStream fs = System.IO.File.Create(filePath))
+                        {
+                            account.AvatarFile.CopyTo(fs);
+                            fs.Flush();
+                        }
+                        account.Avatar = filename;
+                        _context.Update(account);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {

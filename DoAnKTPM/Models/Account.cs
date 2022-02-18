@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DoAnKTPM.Models
 {
@@ -41,7 +43,8 @@ namespace DoAnKTPM.Models
 
         [DisplayName("Ảnh đại diện")]
         public string Avatar { get; set; }
-
+        [NotMapped]
+        public IFormFile AvatarFile { get; set; }
         [DisplayName("Còn hoạt động")]
         [DefaultValue(true)]
         public bool Status { get; set; } = true;

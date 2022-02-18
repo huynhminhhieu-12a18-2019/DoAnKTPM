@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAnKTPM.Data;
 using DoAnKTPM.Models;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace DoAnKTPM.Areas.Admin.Controllers
 {
@@ -14,10 +16,11 @@ namespace DoAnKTPM.Areas.Admin.Controllers
     public class ProductsController : Controller
     {
         private readonly DoAnKTPMContext _context;
-
-        public ProductsController(DoAnKTPMContext context)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public ProductsController(DoAnKTPMContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Admin/Products
@@ -58,12 +61,27 @@ namespace DoAnKTPM.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SKU,Name,Description,Price,Stock,ProductTypeId,Image,Status")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,SKU,Name,Description,Price,Stock,ProductTypeId,Image,ImageFile,Status")] Product product)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
+                if (product.ImageFile != null)
+                {
+                    var filename = product.Id.ToString() + Path.GetExtension(product.ImageFile.FileName);
+                    var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "product");
+                    var filePath = Path.Combine(uploadPath, filename);
+                    using (FileStream fs = System.IO.File.Create(filePath))
+                    {
+                        product.ImageFile.CopyTo(fs);
+                        fs.Flush();
+                    }
+                    product.Image = filename;
+                    _context.Update(product);
+                    await _context.SaveChangesAsync();
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "Name", product.ProductTypeId);
@@ -92,7 +110,7 @@ namespace DoAnKTPM.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,SKU,Name,Description,Price,Stock,ProductTypeId,Image,Status")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,SKU,Name,Description,Price,Stock,ProductTypeId,Image,ImageFile,Status")] Product product)
         {
             if (id != product.Id)
             {
@@ -103,8 +121,21 @@ namespace DoAnKTPM.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(product);
                     await _context.SaveChangesAsync();
+                    if (product.ImageFile != null)
+                    {
+                        var filename = product.Id.ToString() + Path.GetExtension(product.ImageFile.FileName);
+                        var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "product");
+                        var filePath = Path.Combine(uploadPath, filename);
+                        using (FileStream fs = System.IO.File.Create(filePath))
+                        {
+                            product.ImageFile.CopyTo(fs);
+                            fs.Flush();
+                        }
+                        product.Image = filename;
+                        _context.Update(product);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {

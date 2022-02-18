@@ -7,7 +7,6 @@ using DoAnKTPM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using DoAnKTPM.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace DoAnKTPM.Areas.Admin.Controllers
 {
@@ -36,7 +35,8 @@ namespace DoAnKTPM.Areas.Admin.Controllers
         }
         public IActionResult ThongKeChiTiet()
         {
-            var hoadon = _context.Invoices.Include(i => i.Account);
+            DateTime datetime = DateTime.Now;
+            var hoadon = _context.Invoices.Include(i => i.Account).Where(i=> i.IssuedDate > datetime.Date);
             ViewBag.hoadon = hoadon;
 
             var tiendachi = _context.Invoices.Include(i => i.Account).ToList();
@@ -83,6 +83,11 @@ namespace DoAnKTPM.Areas.Admin.Controllers
             HttpContext.Response.Cookies.Append("HoTen", "", new CookieOptions() { Expires = DateTime.Now.AddDays(-1) });
             HttpContext.Response.Cookies.Append("TaiKhoanId", "", new CookieOptions() { Expires = DateTime.Now.AddDays(-1) });
             return RedirectToAction("Login", "Home");
+        }
+        public async Task<IActionResult> Views()
+        {
+            var doAnKTPMContext = _context.Products.Include(p => p.ProductType);
+            return View(await doAnKTPMContext.ToListAsync());
         }
     }
 }
