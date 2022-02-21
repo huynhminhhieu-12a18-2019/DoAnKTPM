@@ -346,12 +346,10 @@ D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views
 D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views\Carts\Details.cshtml.g.cs
 D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views\Carts\Edit.cshtml.g.cs
 D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views\Carts\Index.cshtml.g.cs
-D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views\Invoices\Create.cshtml.g.cs
 D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views\Invoices\Delete.cshtml.g.cs
 D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views\Invoices\Details.cshtml.g.cs
 D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views\Invoices\Edit.cshtml.g.cs
 D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views\Invoices\Index.cshtml.g.cs
-D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views\InvoiceDetails\Create.cshtml.g.cs
 D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views\InvoiceDetails\Delete.cshtml.g.cs
 D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views\InvoiceDetails\Details.cshtml.g.cs
 D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views\InvoiceDetails\Edit.cshtml.g.cs

@@ -25,36 +25,59 @@ namespace DoAnKTPM.Areas.Admin.Controllers
             {
                 ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
             ViewBag.slnguoidung = _context.Accounts.Where(acc => acc.IsAdmin == false).Count();
             ViewBag.slgiohang = _context.Carts.GroupBy(cart => cart.AccountId).Count();
-            var hoadon = _context.Invoices.Include(i => i.Account);
+            DateTime date = DateTime.Today;
+            var dayofweek = DayOfWeek.Sunday;
+            var s = date.DayOfWeek;
+            if (s != dayofweek)
+            {
+                var a = dayofweek - s;
+                date = date.AddDays(a);
+            }
+            var hoadon = _context.Invoices.Include(i => i.Account).Where(i => i.IssuedDate.Date >= date.Date);
+            var tatcahoadon = _context.Invoices.Include(i => i.Account);
             ViewBag.hoadon = hoadon;
-            ViewBag.slhoadon = hoadon.Count();
+            ViewBag.slhoadon = tatcahoadon.Count();
             ViewBag.slsanpham = _context.Products.Count();
             return View();
         }
         public IActionResult ThongKeChiTiet()
         {
-            DateTime datetime = DateTime.Now;
-            var hoadon = _context.Invoices.Include(i => i.Account).Where(i=> i.IssuedDate > datetime.Date);
+            DateTime date = DateTime.Today;
+            var dayofweek = DayOfWeek.Sunday;
+            var s = date.DayOfWeek;
+            if(s != dayofweek)
+            {
+                var a = dayofweek - s;
+                date = date.AddDays(a);
+            }
+            var hoadon = _context.Invoices.Include(i => i.Account).Where(i=>i.IssuedDate.Date >= date.Date);
             ViewBag.hoadon = hoadon;
 
             var tiendachi = _context.Invoices.Include(i => i.Account).ToList();
-            //var spbanchay = _context.InvoiceDetails.Include(invd => invd.Product).GroupBy(invd => invd.ProductId).Select(g => new
-            //{
-            //    TongSL = g.Sum(invd => invd.Quantity),
-            //    MaSP = g.Select(invd => invd.Product.SKU),
-            //    TenSP = g.Select(invd => invd.Product.Name)
-            //});
-            var spbanchay = _context.InvoiceDetails.Include(invd => invd.Product).ToList();
-            var spbanchays = spbanchay.GroupBy(i => i.ProductId).SelectMany(cl => cl.Select(
-                    csLine => new
-                    {
-                        MaSP = csLine.Product.SKU,
-                        TenSP = csLine.Product.Name,
-                        TongSL = cl.Sum(c => c.Quantity).ToString(),
-                    })).ToList();
-            ViewBag.spbanchay = spbanchays;
+            return View(tiendachi);
+        }
+        [HttpPost]
+        public IActionResult ThongKeChiTiet(DateTime datebefore, DateTime dateafter)
+        {
+            ViewBag.doanhthu = _context.Invoices.Where(i => i.IssuedDate.Date >= datebefore.Date && i.IssuedDate.Date <= dateafter.Date).Sum(i => i.Total);
+            DateTime date = DateTime.Today;
+            var dayofweek = DayOfWeek.Sunday;
+            var s = date.DayOfWeek;
+            if (s != dayofweek)
+            {
+                var a = dayofweek - s;
+                date = date.AddDays(a);
+            }
+            var hoadon = _context.Invoices.Include(i => i.Account).Where(i => i.IssuedDate.Date >= date.Date);
+            ViewBag.hoadon = hoadon;
+
+            var tiendachi = _context.Invoices.Include(i => i.Account).ToList();
             return View(tiendachi);
         }
         public IActionResult Login()
@@ -83,11 +106,6 @@ namespace DoAnKTPM.Areas.Admin.Controllers
             HttpContext.Response.Cookies.Append("HoTen", "", new CookieOptions() { Expires = DateTime.Now.AddDays(-1) });
             HttpContext.Response.Cookies.Append("TaiKhoanId", "", new CookieOptions() { Expires = DateTime.Now.AddDays(-1) });
             return RedirectToAction("Login", "Home");
-        }
-        public async Task<IActionResult> Views()
-        {
-            var doAnKTPMContext = _context.Products.Include(p => p.ProductType);
-            return View(await doAnKTPMContext.ToListAsync());
         }
     }
 }

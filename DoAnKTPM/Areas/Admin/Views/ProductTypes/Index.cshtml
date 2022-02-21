@@ -5,10 +5,14 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Index</h1>
-
+<h1>Danh sách loại sản phẩm</h1>
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
 <p>
-    <a asp-action="Create">Create New</a>
+    <button class="btn btn-primary"><a style="color:white" asp-action="Create">Thêm mới</a> </button>
 </p>
 <table class="table">
     <thead>

@@ -5,9 +5,12 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>Cart</h4>
+<h1>Chỉnh sửa giỏ hàng</h1>
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -30,13 +33,13 @@
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Lưu" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Trở về</a>
 </div>
 

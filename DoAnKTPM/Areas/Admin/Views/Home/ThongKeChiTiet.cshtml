@@ -10,6 +10,8 @@
                         SDT = csLine.Account.Phone.ToString(),
                         Total = cl.Sum(c => c.Total).ToString(),
                     })).Distinct().ToList();
+    var spbanchay = ViewBag.spbanchay;
+
 }
 <div style="margin-left:50px">
     <div class="card mb-4">
@@ -50,11 +52,11 @@
 
     <span style="font-weight:bold">Doanh thu</span>
     <div>
-        <form action="/" method="post">
+        <form asp-area="Admin" asp-controller="Home" asp-action="ThongKeChiTiet" method="post">
             Khoảng ngày: <input id="datebefore" type="date" name="datebefore" value="" />   <input type="date" id="dateafter" name="dateafter" value="" />
+                                                                                            <button type="submit">Tìm</button>
         </form><br>
         <p> Tổng doanh thu : @ViewBag.doanhthu</p>
-        Tổng doanh số : @ViewBag.doanhso
     </div><br>
     <span style="font-weight:bold">Số tiền đã chi của mỗi khách hàng</span>
     <table class="table">
@@ -74,22 +76,6 @@
             </tr>
         }
     </table>
-    <span style="font-weight:bold">Top sản phẩm bán chạy</span>
-    @*<table class="table">
-            <tr>
-                <th>Mã sản phẩm</th>
-                <th>Tên sản phẩm</th>
-                <th>Tên sản phẩm</th>
-            </tr>
-            @foreach(var i in @ViewBag.spbanchay)
-                {
-                <tr>
-                    <td>@i.MaSP</td>
-                    <td>@i.TenSP</td>
-                    <td>@i.TongSL</td>
-                </tr>
-                }
-        </table>*@
     <script>
         var today = new Date();
         var dd = today.getDate();
