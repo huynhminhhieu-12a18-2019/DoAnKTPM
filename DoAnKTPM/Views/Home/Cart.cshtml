@@ -1,0 +1,176 @@
+﻿@model IEnumerable<DoAnKTPM.Models.Cart>
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_LayoutCart.cshtml";
+    int total = 0;
+}
+<!-- SHOP -->
+<div id="shop-wrap">
+    <section id="shop" class="right">
+        <!-- SIDEBAR CONTROL -->
+        <div class="sidebar-control"></div>
+        <!-- /SIDEBAR CONTROL -->
+        <!-- SHOP SIDEBAR -->
+        <aside class="shop-sidebar checkout-cart">
+            <!-- SIDEBAR CONTROL -->
+            <svg class="svg-plus sidebar-control">
+                <use xlink:href="#svg-plus"></use>
+            </svg>
+            <!-- /SIDEBAR CONTROL -->
+
+            <h3 class="title">Mã giảm giá</h3>
+            <form class="westeros-form">
+                <input type="text" placeholder="Nhập mã khuyến mại của bạn tại đây ...">
+                <button class="button small">Đổi mã</button>
+            </form>
+
+            <h3 class="title">Tổng số giỏ hàng</h3>
+            <!-- CART TOTAL -->
+            <div class="cart-total">
+                <!-- SUBTOTAL -->
+                <div class="subtotal">
+                    <h5>Tổng tiền</h5>
+                    <h5>@ViewBag.Total.ToString("n0")</h5>
+                </div>
+                <!-- /SUBTOTAL -->
+                <!-- SUBTOTAL -->
+                <div class="subtotal">
+                    <h5>Phí vận chuyển</h5>
+                    <h5>0.00</h5>
+                </div>
+                <!-- /SUBTOTAL -->
+                <!-- SUBTOTAL -->
+                <div class="subtotal">
+                    <h5>Mã giảm giá</h5>
+                    <h5>0.00</h5>
+                </div>
+                <!-- /SUBTOTAL -->
+                <!-- TOTAL -->
+                <div class="total">
+                    <h5>Thành tiền</h5>
+                    <h5>@ViewBag.Total.ToString("n0")</h5>
+                </div>
+                <!-- /TOTAL -->
+            </div>
+            <!-- /CART TOTAL -->
+
+            <a asp-controller="Home" asp-action="Pay" class="button">Thanh Toán</a>
+        </aside>
+        <!-- /SHOP SIDEBAR -->
+        <!-- SHOP PRODUCTS -->
+        
+        <div class="shop-products shop-cart">
+            <h3 class="title">Giỏ hàng</h3>
+            <!-- SHOPPING CART -->
+            @if (@ViewBag.Total == 0)
+            {
+                <div class="shop-products shop-cart">
+                    <h5> Bạn chưa có sản phẩm trong giỏ hàng. <a asp-action="index" asp-controller="Home">Mua thêm</a></h5>
+                </div>
+            }
+            else
+            {
+                <div class="shopping-cart wishlist-cart">
+                    <!-- ROW -->
+                    <div class="row header">
+                        <!-- CELL -->
+                        <div class="cell">
+                            <h5>Chi tết giỏ hàng</h5>
+                        </div>
+                        <!-- /CELL -->
+                        <!-- CELL -->
+                        <div class="cell">
+                            <h5>Giá</h5>
+                        </div>
+                        <!-- /CELL -->
+                        <!-- CELL -->
+                        <div class="cell">
+                            <h5>Số lượng</h5>
+                        </div>
+                        <!-- /CELL -->
+                        <!-- CELL -->
+                        <div class="cell">
+                            <h5>Thành tiền</h5>
+                        </div>
+                        <!-- /CELL -->
+                        <!-- CELL -->
+                        <div class="cell">
+                        </div>
+                        <!-- /CELL -->
+                    </div>
+                    <!-- /ROW -->
+
+                    @foreach (var item in Model)
+                    {
+                        var thanhtien = item.Quantity * item.Product.Price;
+                        total += thanhtien;
+
+                        <div class="row">
+
+                            <!-- CELL -->
+                            <div class="cell cart-item">
+                                <div class="product-picture">
+                                    <figure class="liquid">
+                                        <img src="~/img/product/@item.Product.Image" alt="product-picture">
+                                    </figure>
+                                </div>
+                                <p class="highlighted">1d</p>
+                                <h3>@item.Product.Name</h3>
+                            </div>
+                            <!-- /CELL -->
+                            <!-- CELL -->
+                            <div class="cell">
+                                <p class="highlighted">@item.Product.Price.ToString("n0")</p>
+                            </div>
+                            <!-- /CELL -->
+                            <!-- CELL -->
+
+                            <div class="cell">
+                                <form asp-action="UpdateCart" asp-controller="Home" asp-route-productid="@item.Product.Id">
+                                    <!-- COUNTER -->
+                                    <h5><input asp-for="@item.Quantity" name="quantity" style="margin-top:25px; width : 50px;padding-left: 2px;text-align:center" type="text"></h5>
+                                    <!-- /COUNTER -->
+                                </form>
+                            </div>
+
+                            <!-- /CELL -->
+                            <!-- CELL -->
+                            <div class="cell">
+                                <p class="highlighted">@(thanhtien.ToString("n0"))</p>
+                            </div>
+                            <!-- /CELL -->
+                            <!-- CELL -->
+                            <div class="cell buttons small">
+                                <!-- ACTIONS -->
+                                <div class="actions">
+                                    <a asp-route="RemoveCart" asp-route-productid="@item.Product.Id" class="button medium no-stock" style="margin-right:50px;">
+                                        <!-- SVG PLUS -->
+                                        <svg class="svg-plus">
+                                            <use xlink:href="#svg-plus"></use>
+                                        </svg>
+                                        <!-- /SVG PLUS -->
+                                    </a>
+                                </div>
+                                <!-- /ACTIONS -->
+                            </div>
+                            <!-- /CELL -->
+
+                        </div>
+
+                    }
+
+                    <!-- ROW -->
+                    <!-- /ROW -->
+                </div>
+                <!-- /SHOPPING CART -->
+                <a asp-action="RemoveAllCart" asp-controller="Home" class="button" style="margin-left: 10px; width: 100px">
+                    <!-- SVG PLUS -->
+                    Xoá tất cả
+                    <!-- /SVG PLUS -->
+                </a>
+           
+        }
+            <!-- /SHOP PRODUCTS -->
+        </section>
+</div>
+<!-- /SHOP -->

@@ -366,3 +366,6 @@ D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views
 D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views\ProductTypes\Index.cshtml.g.cs
 D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views\Home\Views.cshtml.g.cs
 D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Areas\Admin\Views\_ViewImports.cshtml.g.cs
+D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Views\Home\Cart.cshtml.g.cs
+D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Views\Home\Pay.cshtml.g.cs
+D:\DoAn_HK5_2021_2022\DoAnKTPM\DoAnKTPM\obj\Debug\net5.0\Razor\Views\Shared\_LayoutCart.cshtml.g.cs

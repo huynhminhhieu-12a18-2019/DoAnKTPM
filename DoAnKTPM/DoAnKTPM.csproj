@@ -19,4 +19,8 @@
     <Folder Include="wwwroot\img\account\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\js\site.js" />
+  </ItemGroup>
+
 </Project>
